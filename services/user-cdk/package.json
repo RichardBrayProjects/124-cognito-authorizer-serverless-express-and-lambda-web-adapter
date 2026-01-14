@@ -1,0 +1,27 @@
+{
+  "name": "@uptickart/user-cdk",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "build": "tsc",
+    "deploy": "cdk deploy --all --require-approval never --app 'tsx ./src/bin/user-api.ts'",
+    "destroy": "cdk destroy --all --force --require-approval never --app 'tsx ./src/bin/user-api.ts'",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.234.1",
+    "constructs": "^10.4.4"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.700.0",
+    "@aws-sdk/client-ssm": "^3.700.0",
+    "@types/aws-lambda": "^8.10.145",
+    "@types/node": "^25.0.3",
+    "@types/pg": "^8.11.10",
+    "aws-cdk": "^2.234.1",
+    "esbuild": "^0.24.0",
+    "pg": "^8.13.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}

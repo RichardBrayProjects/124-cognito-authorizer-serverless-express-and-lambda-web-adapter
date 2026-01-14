@@ -1,0 +1,50 @@
+# syntax=docker/dockerfile:1.4
+
+# Stage 1: Build
+FROM public.ecr.aws/docker/library/node:20-slim AS builder
+
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
+ENV COREPACK_ENABLE_AUTO_PIN=0
+
+# Set the working directory
+WORKDIR "/build"
+
+# Copy workspace configuration files
+COPY pnpm-lock.yaml ./
+COPY pnpm-workspace.yaml ./
+COPY package.json ./
+
+# Copy the specific service files
+COPY services/image/package.json ./services/image/
+COPY services/image/tsconfig.json ./services/image/
+COPY services/image/src ./services/image/src
+
+# Install dependencies
+# IMPORTANT: The deploy script should run 'pnpm install' first to update the lockfile
+# This matches the pattern in 064-MONO project's deploy-login-service.sh script
+# If this fails, run 'pnpm install' in the project root to sync the lockfile
+RUN pnpm install --frozen-lockfile
+
+# Build the service
+WORKDIR "/build/services/image"
+RUN pnpm run bundleMain
+
+# Stage 2: Runtime
+FROM public.ecr.aws/docker/library/node:20-slim
+
+# Copy Lambda Web Adapter
+COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.9.0 /lambda-adapter /opt/extensions/lambda-adapter
+
+WORKDIR "/app"
+
+# Copy bundled files (all dependencies are bundled, no need for node_modules)
+COPY --from=builder /build/services/image/dist ./
+
+ENV PORT=3000
+ENV READINESS_CHECK_PATH=/health
+EXPOSE 3000
+
+# Run the bundled JavaScript
+# Lambda Web Adapter will route requests to this port
+CMD ["node", "index.js"]

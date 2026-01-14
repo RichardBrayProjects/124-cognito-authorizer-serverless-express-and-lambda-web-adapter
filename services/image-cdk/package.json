@@ -1,0 +1,22 @@
+{
+  "name": "@uptickart/image-cdk",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "build": "tsc",
+    "deploy": "cdk deploy image-api --require-approval never --app 'tsx ./src/bin/image-api.ts'",
+    "destroy": "cdk destroy image-api --force --require-approval never --app 'tsx ./src/bin/image-api.ts'",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.234.1",
+    "constructs": "^10.4.4"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "aws-cdk": "^2.234.1",
+    "esbuild": "^0.24.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}

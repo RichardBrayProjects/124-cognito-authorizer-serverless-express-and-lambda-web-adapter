@@ -1,0 +1,23 @@
+{
+  "name": "@uptickart/infra",
+  "private": true,
+  "version": "0.0.1",
+  "scripts": {
+    "build": "tsc",
+    "deploy-cloudfront": "cdk deploy system-cloudfront --require-approval never --app 'tsx ./src/bin/cloudfront.ts'",
+    "destroy-cloudfront": "cdk destroy system-cloudfront --force --require-approval never --app 'tsx ./src/bin/cloudfront.ts'",
+    "deploy-rds": "cdk deploy system-rds --require-approval never --app 'tsx ./src/bin/rds.ts'",
+    "destroy-rds": "cdk destroy system-rds --force --require-approval never --app 'tsx ./src/bin/rds.ts'",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.234.1",
+    "constructs": "^10.4.4"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "aws-cdk": "^2.234.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}

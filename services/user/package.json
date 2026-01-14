@@ -1,0 +1,26 @@
+{
+  "name": "@uptickart/user-service",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/local.ts",
+    "build": "tsc --noEmit",
+    "type-check": "tsc --noEmit",
+    "bundleMain": "tsx src/build.ts"
+  },
+  "dependencies": {
+    "@aws-sdk/client-ssm": "^3.700.0",
+    "@vendia/serverless-express": "^4.12.6",
+    "cors": "^2.8.5",
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^25.0.3",
+    "esbuild": "^0.27.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}

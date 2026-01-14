@@ -1,0 +1,9 @@
+{
+  "name": "@root/system-cdk",
+  "version": "1.0.0",
+  "scripts": {
+    "bootstrap-up": "sh bootstrap-up.sh",
+    "bootstrap-down": "sh bootstrap-down.sh",
+    "migrate-database": "sh migrate-database.sh"
+  }
+}

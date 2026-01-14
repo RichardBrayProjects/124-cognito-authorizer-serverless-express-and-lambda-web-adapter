@@ -1,0 +1,22 @@
+{
+  "name": "root",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "pnpm -r --filter './services/**' --filter './ui' build",
+    "type-check": "pnpm -r --filter './services/**' --filter './ui' type-check",
+    "bootstrap-up": "pnpm -C system-cdk/scripts run bootstrap-up",
+    "boot-down": "pnpm -C system-cdk/scripts run bootstrap-down",
+    "deploy-rds": "pnpm -C system-cdk run deploy-rds",
+    "migrate-rds": "pnpm -C system-cdk/scripts run migrate-database",
+    "deploy-user-api": "pnpm install && pnpm -C services/user-cdk run deploy",
+    "deploy-image-api": "pnpm install && pnpm -C services/image-cdk run deploy",
+    "deploy-cloudfront": "pnpm -C system-cdk run deploy-cloudfront",
+    "deploy-ui": "pnpm -C ui run deploy",
+    "deploy-all": "pnpm deploy-rds && pnpm migrate-rds && pnpm deploy-user-api && pnpm deploy-image-api && pnpm deploy-cloudfront && pnpm deploy-ui",
+    "destroy-rds": "pnpm -C system-cdk run destroy-rds",
+    "destroy-user-api": "pnpm -C services/user-cdk run destroy",
+    "destroy-image-api": "pnpm -C services/image-cdk run destroy",
+    "destroy-cloudfront": "pnpm -C system-cdk run destroy-cloudfront",
+    "destroy-all": "pnpm destroy-cloudfront && pnpm destroy-image-api && pnpm destroy-user-api && pnpm destroy-rds "
+  }
+}
